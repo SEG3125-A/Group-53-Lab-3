@@ -1,9 +1,3 @@
-// Check if the project is running for the first time
-if (localStorage.getItem("firstRun")) {
-    localStorage.clear();
-    localStorage.setItem("firstRun", "true");
-}
-
 const grocery_items = [
     ["Spinach", 2.99, "spinach.jpg", true, true, false, true],
     ["Tofu", 3.49, "tofu.jpg", true, true, true, true],

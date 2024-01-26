@@ -21,13 +21,15 @@ const grocery_items = [
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
+
     let cart_list = document.getElementById("cart-list");
+
     let total_value = 0;
+
     for (let item of grocery_items){
+
         let quantity = localStorage.getItem(item[0]);
-        if (quantity == null || quantity == 0){
-            continue;
-        }
+        if (quantity == null || quantity == 0){continue;}
         
         // Div element to enclose all aspects of the product
         let item_div = document.createElement("div");
@@ -48,7 +50,10 @@ document.addEventListener("DOMContentLoaded", function() {
         //Increment the total value of the cart
         total_value = total_value + item[1]*quantity;
     }
+
     let display_total = document.createElement("div");
+
     display_total.appendChild(document.createTextNode(`Cart total: $${total_value}`));
+
     cart_list.appendChild(display_total);
 });

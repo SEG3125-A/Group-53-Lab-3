@@ -143,4 +143,65 @@ body {
     transform: rotate(45deg);
 }
 
+#checkout-transfer {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+}
+
+#checkout-transfer:hover {
+    background-color: #45a049;
+}
+
+#checkout-container {
+    width: 300px;
+    float: left;
+    margin: 20px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#checkout-container > h2 {
+    color: #333;
+    text-align: left;
+}
+
+#checkout-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
+
+#checkout-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#checkout-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#checkout-container button:hover {
+    background-color: #45a049;
+}
+
+
 
