@@ -1,24 +1,25 @@
 const grocery_items = [
-    ["Spinach", 2.99, "spinach.jpg", true, true, false, true],
-    ["Tofu", 3.49, "tofu.jpg", true, true, true, true],
-    ["Quinoa", 4.99, "quinoa.jpg", true, true, true, true],
-    ["Almond Milk", 2.79, "almond-milk.jpg", true, true, false, true],
-    ["Brown Rice", 1.99, "brown-rice.jpg", true, true, false, true],
-    ["Gluten-Free Oats", 3.29, "oats.jpg", true, true, false, true],
-    ["Organic Apples", 4.49, "apples.jpg", true, true, true, true],
-    ["Organic Spinach", 3.99, "spinach.jpg", true, true, true, true],
-    ["Yogurt (Lactose-free)", 2.89, "yogurt.jpg", true, true, false, true],
-    ["Cheese (Lactose-free)", 4.19, "cheese.jpg", true, true, false, true],
-    ["Chicken Breast", 6.99, "chicken-breast.jpg", false, true, true, true],
-    ["Salmon Fillet", 8.49, "salmon.jpg", false, true, true, true],
-    ["Eggs", 2.19, "eggs.jpg", true, true, true, true],
-    ["White Bread", 3.99, "white-bread.jpg", true, false, false, true],
-    ["Avocado", 1.99, "avocado.jpg", true, true, false, true],
-    ["Broccoli", 1.29, "broccoli.jpg", true, true, false, true],
-    ["Shrimp", 9.99, "shrimp.jpg", false, true, true, true],
-    ["Coffee Beans", 6.99, "coffee.jpg", true, true, true, true],
-    ["Milk", 3.79, "milk.jpg", true, true, true, false]
+    ["Spinach", 2.99, "spinach.jpg", true, true, false, true, "Vegetables"],
+    ["Tofu", 3.49, "tofu.jpg", true, true, true, true, "Protein"],
+    ["Quinoa", 4.99, "quinoa.jpg", true, true, true, true, "Grains"],
+    ["Almond Milk", 2.79, "almond-milk.jpg", true, true, false, true, "Beverages"],
+    ["Brown Rice", 1.99, "brown-rice.jpg", true, true, false, true, "Grains"],
+    ["Gluten-Free Oats", 3.29, "oats.jpg", true, true, false, true, "Grains"],
+    ["Organic Apples", 4.49, "apples.jpg", true, true, true, true, "Fruits"],
+    ["Organic Spinach", 3.99, "spinach.jpg", true, true, true, true, "Vegetables"],
+    ["Yogurt (Lactose-free)", 2.89, "yogurt.jpg", true, true, false, true, "Dairy"],
+    ["Cheese (Lactose-free)", 4.19, "cheese.jpg", true, true, false, true, "Dairy"],
+    ["Chicken Breast", 6.99, "chicken-breast.jpg", false, true, true, true, "Meat"],
+    ["Salmon Fillet", 8.49, "salmon.jpg", false, true, true, true, "Seafood"],
+    ["Eggs", 2.19, "eggs.jpg", true, true, true, true, "Dairy"],
+    ["White Bread", 3.99, "white-bread.jpg", true, false, false, true, "Bakery"],
+    ["Avocado", 1.99, "avocado.jpg", true, true, false, true, "Fruits"],
+    ["Broccoli", 1.29, "broccoli.jpg", true, true, false, true, "Vegetables"],
+    ["Shrimp", 9.99, "shrimp.jpg", false, true, true, true, "Seafood"],
+    ["Coffee Beans", 6.99, "coffee.jpg", true, true, true, true, "Beverages"],
+    ["Milk", 3.79, "milk.jpg", true, true, true, false, "Dairy"]
 ];
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
