@@ -99,6 +99,10 @@ body {
     height: 25px;
 }
 
+#display-total{
+    background-color: #f0f8f0;
+}
+
 .custom-checkbox {
     display: flex;
     align-items: center;
@@ -210,6 +214,7 @@ body {
     display: flex;
     font-size: 16px;
     align-items: center;
+    border-radius: 5px;
 }
 
 #search input{
@@ -219,6 +224,7 @@ body {
 }
 
 #search img{
+    margin-left: 20px;
     border: none;
     height: 10px;
 }
