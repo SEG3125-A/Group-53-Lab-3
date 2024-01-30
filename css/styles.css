@@ -205,18 +205,25 @@ body {
 
 #search{
     margin-bottom: 20px;
-    padding: 10px;
+    padding-left: 10px;
     background-color: #f5f5f5;
     display: flex;
+    font-size: 16px;
+    align-items: center;
 }
 
 #search input{
     border: none;
     background-color: #f5f5f5;
+    color: #727272;
 }
 
 #search img{
     border: none;
     height: 10px;
-    align-items: center;
+}
+
+#search p{
+    margin-left: 20px;
+    color: #727272;
 }

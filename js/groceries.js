@@ -20,13 +20,23 @@ const grocery_items = [
     ["Milk", 3.79, "milk.jpg", true, true, true, false, "Dairy"]
 ];
 
-document.addEventListener("DOMContentLoaded", function() {
+function updateAndReload(){
+    let element = document.getElementById('search-input');
+    search_criteria = element.value.toLowerCase();
+    localStorage.setItem("search-criteria",search_criteria);
+    location.reload();
+}
 
+document.addEventListener("DOMContentLoaded", function(){
     function update_local_storage(event) {
         localStorage.setItem(event.target.name, event.target.value);
     }
 
     function filter_grocery_items(grocery_items) {
+        let search_criteria = localStorage.getItem("search-criteria");
+        if (!search_criteria){
+            search_criteria = "";
+        }
 
         //Extracting the user's preferences
         let vegetarian = localStorage.getItem("vegetarian") === "true";
@@ -41,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (gluten_free && !item[4]) {continue;}
             if (organic && !item[5]) {continue;}
             if (lactose_free && !item[6]) {continue;}
+            if (!(item[0].toLowerCase()).includes(search_criteria)) {continue;}
             result.push(item);
         }
 
@@ -83,4 +94,12 @@ document.addEventListener("DOMContentLoaded", function() {
         grocery_list.appendChild(item_div);
         grocery_list.appendChild(document.createElement("br"));
     }
+
+    //Re-display the filtering by: icon
+    let search_criteria = localStorage.getItem("search-criteria");
+    if (!search_criteria){
+        search_criteria = "";
+    }
+    document.getElementById('searching-for').innerText = "Searching for: " + search_criteria;
+    console.log("Hey tim, searchign for: ", search_criteria);
 });
