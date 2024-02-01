@@ -20,6 +20,15 @@ body {
     align-items: center;
 }
 
+#header h1 {
+    margin-left: 10px;
+}
+
+#header a {
+    height: 20px;
+    font-size: small;
+}
+
 #preferences {
     margin-top: 50px;
     background-color: #f0f0f0;
@@ -32,10 +41,6 @@ body {
     padding: 20px;
     height: calc(100vh - 60px);
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-
-#header h1 {
-    margin-left: 10px;
 }
 
 #menu2 {
