@@ -20,6 +20,7 @@ const grocery_items = [
     ["Milk", 3.79, "milk.jpg", true, true, true, false, "Dairy"]
 ];
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function() {
     // This function updates the localStorage with the new preference value
     function save_preferences() {
@@ -32,11 +33,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // This function filters the grocery items based on the user's preferences
     function filter_grocery_items() {
+=======
+function updateAndReload(){
+    let element = document.getElementById('search-input');
+    search_criteria = element.value.toLowerCase();
+    localStorage.setItem("search-criteria",search_criteria);
+    location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    function update_local_storage(event) {
+        localStorage.setItem(event.target.name, event.target.value);
+    }
+
+    function filter_grocery_items(grocery_items) {
+        let search_criteria = localStorage.getItem("search-criteria");
+        if (!search_criteria){
+            search_criteria = "";
+        }
+
+        //Extracting the user's preferences
+>>>>>>> 0ff2a6f998a10f902ec71f9731f771be289a96cd
         let vegetarian = localStorage.getItem("vegetarian") === "true";
         let gluten_free = localStorage.getItem("glutenFree") === "true";
         let organic = localStorage.getItem("organic") === "true";
         let lactose_free = localStorage.getItem("lactoseFree") === "true";
 
+<<<<<<< HEAD
         let result = grocery_items.filter(item => {
             if (vegetarian && !item[3]) return false;
             if (gluten_free && !item[4]) return false;
@@ -44,6 +67,18 @@ document.addEventListener("DOMContentLoaded", function() {
             if (lactose_free && !item[6]) return false;
             return true;
         });
+=======
+        let result = [];
+
+        for (let item of grocery_items) {
+            if (vegetarian && !item[3]) {continue;}
+            if (gluten_free && !item[4]) {continue;}
+            if (organic && !item[5]) {continue;}
+            if (lactose_free && !item[6]) {continue;}
+            if (!(item[0].toLowerCase()).includes(search_criteria)) {continue;}
+            result.push(item);
+        }
+>>>>>>> 0ff2a6f998a10f902ec71f9731f771be289a96cd
 
         return result;
     }
@@ -140,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
             filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice); 
     }
 
+<<<<<<< HEAD
         // Attach the save_preferences function to the change event of checkboxes
         document.getElementById("vegetarian-box").addEventListener("change", save_preferences);
         document.getElementById("gluten-free-box").addEventListener("change", save_preferences);
@@ -162,3 +198,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 });
+=======
+    //Re-display the filtering by: icon
+    let search_criteria = localStorage.getItem("search-criteria");
+    if (!search_criteria){
+        search_criteria = "";
+    }
+    document.getElementById('searching-for').innerText = "Searching for: " + search_criteria;
+    console.log("Hey tim, searchign for: ", search_criteria);
+});
+>>>>>>> 0ff2a6f998a10f902ec71f9731f771be289a96cd

@@ -6,6 +6,7 @@
     <title>JSC Grocers</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/groceries.js"></script>
+    <script src="js/common.js" defer></script>
     <link rel="icon" href="images/icon.png" type="image/x-icon">
 </head>
 
@@ -72,6 +73,14 @@
     <div id="categories">
 
     </div>
+</div>
+
+<!-- Main content of the page -->
+<h1>Groceries</h1>
+<div id = "search">
+    <search><input id = "search-input" placeholder = "Search..."></search>
+    <button id = "search-button" onclick="updateAndReload()"><img src = "images/search.png"></button>
+    <p id = "searching-for"></p>
 </div>
 
 <!-- Grocery List (populated in javascript file) -->

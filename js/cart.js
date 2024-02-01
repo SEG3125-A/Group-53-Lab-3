@@ -72,6 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let display_total = document.createElement("div");
 
+<<<<<<< HEAD
     display_total.appendChild(document.createTextNode(totalCostParagraph));
+=======
+    display_total.appendChild(document.createTextNode(`Cart total: $${total_value}`));
+    display_total.id="display-total";
+>>>>>>> 0ff2a6f998a10f902ec71f9731f771be289a96cd
 
 });
