@@ -1,35 +1,45 @@
 const grocery_items = [
-    ["Spinach", 2.99, "spinach.jpg", true, true, false, true, "Vegetables"],
+    ["Spinach", 2.99, "spinach.jpg", true, true, false, true, "Produce"],
     ["Tofu", 3.49, "tofu.jpg", true, true, false, true, "Protein"],
-    ["Quinoa", 4.99, "quinoa.png", true, true, true, true, "Grains"],
+    ["Quinoa", 4.99, "quinoa.png", true, true, true, true, "Grain"],
     ["Almond Milk", 2.79, "almond-milk.jpg", true, true, false, true, "Beverages"],
-    ["Brown Rice", 1.99, "brown-rice.jpg", true, true, false, true, "Grains"],
-    ["Gluten-Free Oats", 3.29, "oats.jpg", true, true, false, true, "Grains"],
-    ["Organic Gala Apples", 4.99, "apples.jpg", true, true, true, true, "Fruits"],
-    ["Gala Apples", 4.49, "apples.jpg", true, true, false, true, "Fruits"],
-    ["Organic Spinach", 3.99, "spinach.jpg", true, true, true, true, "Vegetables"],
+    ["Brown Rice", 1.99, "brown-rice.jpg", true, true, false, true, "Grain"],
+    ["Gluten-Free Oats", 3.29, "oats.jpg", true, true, false, true, "Grain"],
+    ["Organic Gala Apples", 4.99, "apples.jpg", true, true, true, true, "Produce"],
+    ["Gala Apples", 4.49, "apples.jpg", true, true, false, true, "Produce"],
+    ["Organic Spinach", 3.99, "spinach.jpg", true, true, true, true, "Produce"],
     ["Yogurt (Lactose-free)", 2.89, "yogurt.jpg", true, true, false, true, "Dairy"],
     ["Yogurt", 2.89, "yogurt.jpg", true, true, false, false, "Dairy"],
     ["Cheese (Lactose-free)", 4.99, "cheese.jpg", true, true, false, true, "Dairy"],
     ["Swiss Cheese", 4.19, "cheese.jpg", true, true, false, false, "Dairy"],
     ["Blue Cheese", 5.79, "blue-cheese.png", true, true, false, false, "Dairy"],
-    ["Chicken Breast", 6.99, "chicken-breast.jpg", false, true, true, true, "Meat"],
-    ["Salmon Fillet", 8.49, "salmon.jpg", false, true, true, true, "Seafood"],
+    ["Chicken Breast", 6.99, "chicken-breast.png", false, true, true, true, "Protein"],
+    ["Salmon Fillet", 8.49, "salmon.jpg", false, true, true, true, "Protein"],
     ["Eggs", 2.19, "eggs.jpg", true, true, true, true, "Dairy"],
-    ["White Bread", 3.99, "white-bread.jpg", true, false, false, true, "Bakery"],
-    ["Avocado", 1.99, "avocado.jpg", true, true, false, true, "Fruits"],
-    ["Broccoli", 1.29, "broccoli.jpg", true, true, false, true, "Vegetables"],
-    ["Shrimp", 9.99, "shrimp.jpg", false, true, true, true, "Seafood"],
+    ["White Bread", 3.99, "white-bread.jpg", true, false, false, true, "Grain"],
+    ["Avocado", 1.99, "avocado.jpg", true, true, false, true, "Produce"],
+    ["Broccoli", 1.29, "broccoli.jpg", true, true, false, true, "Produce"],
+    ["Shrimp", 9.99, "shrimp.jpg", false, true, true, true, "Protein"],
     ["Coffee Beans", 6.99, "coffee.jpg", true, true, true, true, "Beverages"],
     ["Milk", 3.79, "milk.jpg", true, true, true, false, "Dairy"],
-    ["Raisin Bread", 4.99, "raisin-bread.jpg", true, false, false, true, "Bakery"],
+    ["Raisin Bread", 4.99, "raisin-bread.jpg", true, false, false, true, "Grain"],
     ["Ground Beef", 8.99, "ground-beef.jpg", false, true, false, true, "Protein"],
     ["Ground Chicken",8.49,"ground-chicken.jpg",false,true,false,true, "Protein"],
-    ["Butter tarts", 5.89,"butter-tart.png",true,false,false,false, "Bakery"],
-    ["Organic Strawberries",5.97,"strawberries.jpg",true, true, true, true, "Fruits"],
-    ["Pineapple", 4.99,"pineapple.jpg", true, true, false, true, "Fruits"],
-    ["Organic Cauliflower", 3.39,"cauliflower.jpg",true,true,true,true,"Vegetables"]
+    ["Butter tarts", 5.89,"butter-tart.png",true,false,false,false, "Grain"],
+    ["Organic Strawberries",5.97,"strawberries.jpg",true, true, true, true, "Produce"],
+    ["Pineapple", 4.99,"pineapple.jpg", true, true, false, true, "Produce"],
+    ["Organic Cauliflower", 3.39,"cauliflower.jpg",true,true,true,true,"Produce"],
+    ["Soda",1.99,"soda.jpg",true,true,false,true,"Beverages"],
+    ["Organic White Sugar",3.99,"sugar.png",true,true,true,true,"Grain"]
+
 ];
+
+//Variables for the temporary filter-by-category buttons
+var filter_produce = false; 
+var filter_dairy = false;
+var filter_protein = false;
+var filter_beverages = false;
+var filter_grain = false;
 
 document.addEventListener("DOMContentLoaded", function() {
     // This function updates the localStorage with the new preference value
@@ -53,6 +63,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if (gluten_free && !item[4]) return false;
             if (organic && !item[5]) return false;
             if (lactose_free && !item[6]) return false;
+            if (filter_produce && item[7] != "Produce") return false;
+            if (filter_dairy && item[7] != "Dairy") return false;
+            if (filter_protein && item[7] != "Protein") return false;
+            if (filter_beverages && item[7] != "Beverages") return false;
+            if (filter_grain && item[7] != "Grain") return false;
             return true;
         });
 
@@ -163,10 +178,33 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display the filtered grocery items when the page is initially loaded
     displayFilteredItems();
 
+    // Add event listeners to filter-by-category buttons
+    document.getElementById("produce").addEventListener("click", function(){
+        filter_produce = !filter_produce;
+        displayFilteredItems();
+    });
+    document.getElementById("dairy").addEventListener("click", function(){
+        filter_dairy = !filter_dairy;
+        displayFilteredItems();
+    });
+    document.getElementById("protein").addEventListener("click", function(){
+        filter_protein = !filter_protein;
+        displayFilteredItems();
+    });
+    document.getElementById("beverages").addEventListener("click", function(){
+        filter_beverages = !filter_beverages;
+        displayFilteredItems();
+    });
+    document.getElementById("grain").addEventListener("click", function(){
+        filter_grain = !filter_grain;
+        displayFilteredItems();
+    });
+
+    // Add event listeners to the Price filter settings
     document.getElementById("price-filter").addEventListener("change", displayFilteredItems);
     document.getElementById("price-range").addEventListener("input", function(event) {
-    document.getElementById("price-range-value").textContent = `$${event.target.value}`;
-    displayFilteredItems();
-});
+        document.getElementById("price-range-value").textContent = `$${event.target.value}`;
+        displayFilteredItems();
+    });
 
 });
