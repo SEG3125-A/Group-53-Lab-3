@@ -46,14 +46,32 @@ document.addEventListener("DOMContentLoaded", function() {
         // Div element to enclose all aspects of the product
         let item_div = document.createElement("div");
 
+        //Add remove from cart button
+        let quantity_display = document.createElement("a");
+        quantity_display.innerText = `${quantity}`;
+        quantity_display.style.fontWeight = "bold";
+        item_div.appendChild(quantity_display);
+
         // Name and price of any specific product
-        let product = document.createTextNode(` ${item[0]}, x${quantity} ($${(item[1]*quantity).toFixed(2)})`);
+        let product = document.createTextNode(` ${item[0]} ($${(item[1]*quantity).toFixed(2)}) `);
         item_div.appendChild(product);
 
         // Add image of each product
         let img = document.createElement("img");
         img.src = `images/items/${item[2]}`;
         item_div.appendChild(img);
+
+        // Add remove button of each product
+        let remove = document.createElement("button");
+        remove.innerText = "REMOVE";
+        remove.style.fontSize = '10px';
+        remove.style.color = '#aa0000';
+        remove.style.padding = '10px';
+        remove.style.borderRadius = '10px';
+        remove.style.border = '10px';
+        remove.style.backgroundColor = "#c9bdb5";
+        remove.addEventListener("click", function(){localStorage.setItem(item[0],"0");});
+        item_div.appendChild(remove);
 
         //Add the new div element to the Cart List
         cart_list.appendChild(item_div);

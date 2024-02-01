@@ -82,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function(){
         let input = document.createElement("input");
         input.type = "number";
         input.name = item[0];
+        input.defaultValue = 0;
+        input.style.color ="lightgrey";
 
         //Save the value inputted by user for future use
         let stored_value = localStorage.getItem(input.name);
@@ -90,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         input.min = 0;
         input.addEventListener('input', update_local_storage);
+        input.addEventListener('input', function(){input.style.color = "green"});
         item_div.appendChild(input);
 
         // Name and price of any specific product
