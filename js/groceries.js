@@ -194,22 +194,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add event listeners to filter-by-category buttons
     document.getElementById("produce").addEventListener("click", function(){
-        filter_produce = !filter_produce;
+        filter_produce = !filter_produce; 
+        filter_dairy = false;
+        filter_protein = false;
+        filter_beverages = false;
+        filter_grain = false;
         displayFilteredItems();
     });
     document.getElementById("dairy").addEventListener("click", function(){
+        filter_produce = false; 
         filter_dairy = !filter_dairy;
+        filter_protein = false;
+        filter_beverages = false;
+        filter_grain = false;
         displayFilteredItems();
     });
     document.getElementById("protein").addEventListener("click", function(){
+        filter_produce = false; 
+        filter_dairy = false;
         filter_protein = !filter_protein;
+        filter_beverages = false;
+        filter_grain = false;
         displayFilteredItems();
     });
     document.getElementById("beverages").addEventListener("click", function(){
+        filter_produce = false; 
+        filter_dairy = false;
+        filter_protein = false;
         filter_beverages = !filter_beverages;
+        filter_grain = false;
         displayFilteredItems();
     });
     document.getElementById("grain").addEventListener("click", function(){
+        filter_produce = false; 
+        filter_dairy = false;
+        filter_protein = false;
+        filter_beverages = false;
         filter_grain = !filter_grain;
         displayFilteredItems();
     });
