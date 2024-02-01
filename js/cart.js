@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let total_value = 0;
 
     for (let item of grocery_items){
+        console.log("trace");
 
         let quantity = localStorage.getItem(item[0]);
         if (quantity == null || quantity == 0){continue;}
