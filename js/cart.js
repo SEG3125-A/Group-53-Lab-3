@@ -79,12 +79,14 @@ document.addEventListener("DOMContentLoaded", function() {
         total_value = total_value + item[1]*quantity;
 
     }
-    
-    // After calculating total_value
-    let totalCostParagraph = document.getElementById("total-cost");
-    if (totalCostParagraph) {
-        totalCostParagraph.textContent = `Total Cost: $${total_value.toFixed(2)}`;
-    }
+
+    // Add total_cost div to the stack of items in cart
+    let total_cost_container = document.createElement("div");
+    total_cost_container.id = "total-cost-container";
+    total_cost_container.innerText = `Total Cost: $${total_value.toFixed(2)}`;
+    total_cost_container.style.backgroundColor = "lightgrey";
+    total_cost_container.style.padding = "10px";
+    cart_list.appendChild(total_cost_container);
 
     let menuButtons = document.querySelectorAll("#menu2 a");
     menuButtons.forEach(button => {

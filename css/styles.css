@@ -242,24 +242,18 @@ body {
     margin-bottom: 7px;
     margin-top: 7px;
     width: 80%;
-    text-align: center;
-    align-self: center;
 }
 
 #cart-list {
-    position: fixed;
+    position: absolute;
     top: 53%;
     left: 50%;
-    text-align: center;
     transform: translate(-50%, -50%);
-    width: 90%;
     max-width: 400px;
     width: 53%;
     max-height: 50vh;
     overflow-y: auto;
     background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #pricing-filter {
@@ -330,16 +324,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#total-cost-container {
-    width: 30%;
-    margin: 0 auto;
-    text-align: center;
-    background-color: #e0e0e0;
-    border: 1px solid grey;
-    margin-top: 50px;
-    font-size: 1.4em;
 }
 
 .form-container {
