@@ -103,12 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let display_total = document.createElement("div");
-
-
-    display_total.appendChild(document.createTextNode(totalCostParagraph));
-
-    display_total.appendChild(document.createTextNode(`Cart total: $${total_value}`));
     display_total.id="display-total";
-
+    display_total.appendChild(document.createTextNode(totalCostParagraph));
+    display_total.appendChild(document.createTextNode(`Cart total: $${total_value}`));
 
 });
