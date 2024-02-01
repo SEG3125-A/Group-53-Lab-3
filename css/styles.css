@@ -28,6 +28,10 @@ body {
     height: 20px;
     font-size: small;
 }
+#header span {
+    height: 20px;
+    font-size: small;
+}
 
 #preferences {
     margin-top: 50px;
