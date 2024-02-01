@@ -21,66 +21,144 @@ const grocery_items = [
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
-
-    function update_local_storage(event) {
-        localStorage.setItem(event.target.name, event.target.value);
+    // This function updates the localStorage with the new preference value
+    function save_preferences() {
+        localStorage.setItem("vegetarian", document.getElementById("vegetarian-box").checked);
+        localStorage.setItem("glutenFree", document.getElementById("gluten-free-box").checked);
+        localStorage.setItem("organic", document.getElementById("organic-box").checked);
+        localStorage.setItem("lactoseFree", document.getElementById("lactose-free-box").checked);
+        displayFilteredItems(); // Update the display whenever preferences are saved
     }
 
-    function filter_grocery_items(grocery_items) {
-
-        //Extracting the user's preferences
+    // This function filters the grocery items based on the user's preferences
+    function filter_grocery_items() {
         let vegetarian = localStorage.getItem("vegetarian") === "true";
         let gluten_free = localStorage.getItem("glutenFree") === "true";
         let organic = localStorage.getItem("organic") === "true";
         let lactose_free = localStorage.getItem("lactoseFree") === "true";
 
-        let result = [];
-
-        for (let item of grocery_items) {
-            if (vegetarian && !item[3]) {continue;}
-            if (gluten_free && !item[4]) {continue;}
-            if (organic && !item[5]) {continue;}
-            if (lactose_free && !item[6]) {continue;}
-            result.push(item);
-        }
+        let result = grocery_items.filter(item => {
+            if (vegetarian && !item[3]) return false;
+            if (gluten_free && !item[4]) return false;
+            if (organic && !item[5]) return false;
+            if (lactose_free && !item[6]) return false;
+            return true;
+        });
 
         return result;
     }
 
-    let filtered_grocery_items = filter_grocery_items(grocery_items);
+    // This function displays the filtered grocery items on the page
+    function displayFilteredItems() {
+        let filtered_grocery_items = filter_grocery_items();
 
-    //Display the Customer's grocery list
-    let grocery_list = document.getElementById("grocery-list");
-    for (let item of filtered_grocery_items) {
-
-        // Div element to enclose all aspects of the product
-        let item_div = document.createElement("div");
-
-        // Number input for the number of units the customer wants
-        let input = document.createElement("input");
-        input.type = "number";
-        input.name = item[0];
-
-        //Save the value inputted by user for future use
-        let stored_value = localStorage.getItem(input.name);
-        if (stored_value !== null) {
-            input.value = stored_value;
+        // Sort the filtered items
+        const sortType = document.getElementById("price-filter").value;
+        if (sortType === "lower-to-higher") {
+            filtered_grocery_items.sort((a, b) => a[1] - b[1]);
+        } else if (sortType === "higher-to-lower") {
+            filtered_grocery_items.sort((a, b) => b[1] - a[1]);
         }
-        input.min = 0;
-        input.addEventListener('input', update_local_storage);
-        item_div.appendChild(input);
+    
+        // Get the maxPrice value and apply the price range filter
+        const maxPrice = parseFloat(document.getElementById("price-range").value);
+        filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice);
+    
+        // Now display the items
+        let grocery_list = document.getElementById("grocery-list");
+        grocery_list.innerHTML = ''; 
 
-        // Name and price of any specific product
-        let product = document.createTextNode(` ${item[0]} ($${item[1].toFixed(2)})`);
-        item_div.appendChild(product);
+        for (let item of filtered_grocery_items) {
+            let item_div = document.createElement("div");
+            let img = document.createElement("img");
+            img.src = `images/items/${item[2]}`;
+            img.alt = item[0];
+            item_div.appendChild(img);
 
-        // Add image of each product
-        let img = document.createElement("img");
-        img.src = `images/items/${item[2]}`;
-        item_div.appendChild(img);
+            let productSpan = document.createElement("span");
+            productSpan.className = 'product-name';
+            productSpan.textContent = ` ${item[0]} ($${item[1].toFixed(2)})`;
+            item_div.appendChild(productSpan);
+            
+        
+            let quantity = localStorage.getItem(item[0]) || 0; // Retrieve or initialize quantity
+            if (quantity > 0) {
+                // If already added, show quantity controls instead of 'Add to Cart'
+                createQuantityControls(item_div, item, quantity);
+            } else {
+                let addToCartBtn = document.createElement("button");
+                addToCartBtn.className = 'add-to-cart-btn';
+                addToCartBtn.textContent = `Add to Cart `;
+                item_div.appendChild(addToCartBtn);
+        
+                addToCartBtn.addEventListener('click', function() {
+                    localStorage.setItem(item[0], 1); // Update localStorage when adding to cart
+                    createQuantityControls(item_div, item, 1); // Start with 1 item added
+                    addToCartBtn.remove(); // Remove 'Add to Cart' button
+                });
+                
+            }
+        
+            grocery_list.appendChild(item_div);
+        }
+        
+        function createQuantityControls(container, item, initialQuantity) {
+            let decrementBtn = document.createElement("button");
+            decrementBtn.textContent = '-';
+            let incrementBtn = document.createElement("button");
+            incrementBtn.textContent = '+';
+            let quantityDisplay = document.createElement("span");
+            quantityDisplay.textContent = initialQuantity;
 
-        //Add the new div element to the Grocery List
-        grocery_list.appendChild(item_div);
-        grocery_list.appendChild(document.createElement("br"));
+            decrementBtn.className = 'quantity-btn';
+            incrementBtn.className = 'quantity-btn';
+            quantityDisplay.className = 'quantity-display';
+
+            decrementBtn.addEventListener('click', function() {
+                updateQuantity(item[0], quantityDisplay, -1);
+            });
+        
+            incrementBtn.addEventListener('click', function() {
+                updateQuantity(item[0], quantityDisplay, 1);
+            });
+        
+            container.appendChild(decrementBtn);
+            container.appendChild(quantityDisplay);
+            container.appendChild(incrementBtn);
+        }
+        
+        function updateQuantity(itemName, displayElement, change) {
+            let currentQuantity = parseInt(localStorage.getItem(itemName) || 0);
+            let newQuantity = currentQuantity + change;
+            if (newQuantity >= 0) {
+                localStorage.setItem(itemName, newQuantity);
+                displayElement.textContent = newQuantity;
+                displayFilteredItems(); // Re-evaluate and display items based on the updated quantity
+            }
+        }
+            // Filter based on price range
+            filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice); 
     }
+
+        // Attach the save_preferences function to the change event of checkboxes
+        document.getElementById("vegetarian-box").addEventListener("change", save_preferences);
+        document.getElementById("gluten-free-box").addEventListener("change", save_preferences);
+        document.getElementById("organic-box").addEventListener("change", save_preferences);
+        document.getElementById("lactose-free-box").addEventListener("change", save_preferences);
+
+        // Set the initial state of checkboxes based on stored preferences
+        document.getElementById("vegetarian-box").checked = localStorage.getItem("vegetarian") === "true";
+        document.getElementById("gluten-free-box").checked = localStorage.getItem("glutenFree") === "true";
+        document.getElementById("organic-box").checked = localStorage.getItem("organic") === "true";
+        document.getElementById("lactose-free-box").checked = localStorage.getItem("lactoseFree") === "true";
+
+        // Display the filtered grocery items when the page is initially loaded
+        displayFilteredItems();
+
+        document.getElementById("price-filter").addEventListener("change", displayFilteredItems);
+        document.getElementById("price-range").addEventListener("input", function(event) {
+        document.getElementById("price-range-value").textContent = `$${event.target.value}`;
+        displayFilteredItems();
+    });
+
 });

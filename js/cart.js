@@ -39,22 +39,39 @@ document.addEventListener("DOMContentLoaded", function() {
         let product = document.createTextNode(` ${item[0]}, x${quantity} ($${(item[1]*quantity).toFixed(2)})`);
         item_div.appendChild(product);
 
-        // Add image of each product
-        let img = document.createElement("img");
-        img.src = `images/items/${item[2]}`;
-        item_div.appendChild(img);
-
         //Add the new div element to the Cart List
         cart_list.appendChild(item_div);
         cart_list.appendChild(document.createElement("br"));
 
         //Increment the total value of the cart
         total_value = total_value + item[1]*quantity;
+
+    }
+    
+    // After calculating total_value
+    let totalCostParagraph = document.getElementById("total-cost");
+    if (totalCostParagraph) {
+        totalCostParagraph.textContent = `Total Cost: $${total_value.toFixed(2)}`;
+    }
+
+    let menuButtons = document.querySelectorAll("#menu2 a");
+    menuButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            menuButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Set initial active state based on the current URL
+    const currentPage = window.location.pathname.split("/").pop();
+    if(currentPage === "cart.html") {
+        document.querySelector("#menu2 a[href='cart.html']").classList.add('active');
+    } else if(currentPage === "checkout.html") {
+        document.querySelector("#menu2 a[href='checkout.html']").classList.add('active');
     }
 
     let display_total = document.createElement("div");
 
-    display_total.appendChild(document.createTextNode(`Cart total: $${total_value}`));
+    display_total.appendChild(document.createTextNode(totalCostParagraph));
 
-    cart_list.appendChild(display_total);
 });

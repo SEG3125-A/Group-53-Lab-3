@@ -15,13 +15,62 @@
 <div id="header">
     <h1>JSC GROCERS AND PHARMA INC. LTD.</h1>
     <div id ="menu">
-        <a href="preferences.html">My Preferences</a>
-        <span>&gt;</span>
-        <a href="groceries.html">Shopping</a>
-        <span>&gt;</span>
         <a href="cart.html">My Cart</a>
-        <span>&gt;</span>
-        <a href="checkout.html">Checkout</a>
+    </div>
+</div>
+
+<div id="preferences">
+    <br>
+    <h3>Preferences</h3>
+    <div id="diet-options">
+        <label class="custom-checkbox">
+            <input type="checkbox" id="vegetarian-box">
+            <span class="checkmark"></span>
+            Vegetarian
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="gluten-free-box">
+            <span class="checkmark"></span>
+            Gluten-Free
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="organic-box">
+            <span class="checkmark"></span>
+            Organic
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="lactose-free-box">
+            <span class="checkmark"></span>
+            Lactose-Free
+        </label>
+    </div>
+    <br>
+    <hr>
+    <div id="pricing-filter">
+        <h3>Sort by Price</h3>
+        <select id="price-filter">
+            <option value="lower-to-higher"> Lower to Higher</option>
+            <option value="higher-to-lower"> Higher to Lower</option>
+        </select>
+        <input type="range" id="price-range" min="0" max="10" step="0.01" value="5">
+        <span id="price-range-value">$5</span>        
+    </div>
+    <hr>
+    <div id="category-filter">
+        <h3>Sort by Category</h3>
+        <a id="Fruits" class="category-btn">Fruits</a>
+        <a id="Vegetables" class="category-btn">Vegetables</a>
+        <a id="Dairy" class="category-btn">Dairy</a>
+        <a id="Meat" class="category-btn">Meat</a>
+        <a id="Seafood" class="category-btn">Seafood</a>
+        <a id="Beverages" class="category-btn">Beverages</a>
+        <a id="Grains" class="category-btn">Grains</a>
+        <a id="Protein" class="category-btn">Protein</a>
+        <!-- Add more categories as needed -->
+    </div>
+    
+    <div id="categories">
+
     </div>
 </div>
 
@@ -29,8 +78,9 @@
 <form id="grocery-list"></form>
 
 <!-- Credits that appear on the bottom right of every page -->
-<p id="credits">Website created by Jordan Lau, Saad Kiker, and Cole Stevens</p>
+<div id="credits">
+    <p>Website created by Jordan Lau, Saad Kiker and Cole Stevens</p>
+</div>
 
 </body>
-
 </html>
