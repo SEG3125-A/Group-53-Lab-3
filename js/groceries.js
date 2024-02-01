@@ -41,7 +41,15 @@ var filter_protein = false;
 var filter_beverages = false;
 var filter_grain = false;
 
+function updateAndReload(){
+    let element = document.getElementById('search-input');
+    search_criteria = element.value.toLowerCase();
+    localStorage.setItem("search-criteria",search_criteria);
+    location.reload();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+    
     // This function updates the localStorage with the new preference value
     function save_preferences() {
         localStorage.setItem("vegetarian", document.getElementById("vegetarian-box").checked);
@@ -53,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // This function filters the grocery items based on the user's preferences
     function filter_grocery_items() {
+        let search_criteria = localStorage.getItem("search-criteria");
+        if (!search_criteria){
+            search_criteria = "";
+        }
+
         let vegetarian = localStorage.getItem("vegetarian") === "true";
         let gluten_free = localStorage.getItem("glutenFree") === "true";
         let organic = localStorage.getItem("organic") === "true";
@@ -68,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (filter_protein && item[7] != "Protein") return false;
             if (filter_beverages && item[7] != "Beverages") return false;
             if (filter_grain && item[7] != "Grain") return false;
+            if (!(item[0].toLowerCase()).includes(search_criteria)) {return false;}
             return true;
         });
 
@@ -206,5 +220,12 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("price-range-value").textContent = `$${event.target.value}`;
         displayFilteredItems();
     });
+
+    //Re-display the filtering by: icon
+    let search_criteria = localStorage.getItem("search-criteria");
+    if (!search_criteria){
+        search_criteria = "";
+    }
+    document.getElementById('searching-for').innerText = "Searching for: " + search_criteria;
 
 });

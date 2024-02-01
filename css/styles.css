@@ -241,23 +241,23 @@ body {
     padding: 5px;
     margin-bottom: 7px;
     margin-top: 7px;
-    width: 95%;
-    position: static;
+    width: 80%;
+    text-align: center;
+    align-self: center;
 }
 
 #cart-list {
     position: fixed;
     top: 53%;
-    padding-bottom: 0px;
     left: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
+    width: 90%;
     max-width: 400px;
     width: 53%;
     max-height: 50vh;
     overflow-y: auto;
     background-color: white;
-    border: 1px solid grey;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -339,12 +339,7 @@ body {
     background-color: #e0e0e0;
     border: 1px solid grey;
     margin-top: 50px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-size: 1.4em;
-}
-
-#checkout-container {
-    overflow-y: auto;
 }
 
 .form-container {
@@ -383,4 +378,26 @@ input[type="email"], input[type="text"], input[type="date"] {
 
 .submit-btn:hover {
     background-color: #045c26;
+}
+
+#search{
+    margin-bottom: 20px;
+    padding-left: 10px;
+    background-color: #f5f5f5;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+#search input{
+    border: none;
+    color: #727272;
+    background-color: #f0f0f0;
+}
+
+#search img{
+    border: none;
+    height: 10px;
 }
