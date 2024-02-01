@@ -90,9 +90,12 @@ document.addEventListener("DOMContentLoaded", function(){
         if (stored_value !== null) {
             input.value = stored_value;
         }
+        if (input.value > 0){
+            input.style.color = "green"
+        }
         input.min = 0;
         input.addEventListener('input', update_local_storage);
-        input.addEventListener('input', function(){input.style.color = "green"});
+        input.addEventListener('input', function(){if (input.value > 0){ input.style.color = "green"} });
         item_div.appendChild(input);
 
         // Name and price of any specific product
