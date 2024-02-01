@@ -32,44 +32,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // This function filters the grocery items based on the user's preferences
     function filter_grocery_items() {
-
-    function updateAndReload(){
-    let element = document.getElementById('search-input');
-    search_criteria = element.value.toLowerCase();
-    localStorage.setItem("search-criteria",search_criteria);
-    location.reload();
-    }
-
-        document.addEventListener("DOMContentLoaded", function(){
-    function update_local_storage(event) {
-        localStorage.setItem(event.target.name, event.target.value);
-    }
-
-    function filter_grocery_items(grocery_items) {
-        let search_criteria = localStorage.getItem("search-criteria");
-        if (!search_criteria){
-            search_criteria = "";
-        }
-
-        //Extracting the user's preferences
-
         let vegetarian = localStorage.getItem("vegetarian") === "true";
         let gluten_free = localStorage.getItem("glutenFree") === "true";
         let organic = localStorage.getItem("organic") === "true";
         let lactose_free = localStorage.getItem("lactoseFree") === "true";
 
-
-        let result = [];
-
-        for (let item of grocery_items) {
-            if (vegetarian && !item[3]) {continue;}
-            if (gluten_free && !item[4]) {continue;}
-            if (organic && !item[5]) {continue;}
-            if (lactose_free && !item[6]) {continue;}
-            if (!(item[0].toLowerCase()).includes(search_criteria)) {continue;}
-            result.push(item);
-        }
-
+        let result = grocery_items.filter(item => {
+            if (vegetarian && !item[3]) return false;
+            if (gluten_free && !item[4]) return false;
+            if (organic && !item[5]) return false;
+            if (lactose_free && !item[6]) return false;
+            return true;
+        });
 
         return result;
     }
@@ -78,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function displayFilteredItems() {
         let filtered_grocery_items = filter_grocery_items();
 
-        // Sort the filtered items
         const sortType = document.getElementById("price-filter").value;
         if (sortType === "lower-to-higher") {
             filtered_grocery_items.sort((a, b) => a[1] - b[1]);
@@ -86,11 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
             filtered_grocery_items.sort((a, b) => b[1] - a[1]);
         }
     
-        // Get the maxPrice value and apply the price range filter
         const maxPrice = parseFloat(document.getElementById("price-range").value);
         filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice);
     
-        // Now display the items
         let grocery_list = document.getElementById("grocery-list");
         grocery_list.innerHTML = ''; 
 
@@ -107,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
             item_div.appendChild(productSpan);
             
         
-            let quantity = localStorage.getItem(item[0]) || 0; // Retrieve or initialize quantity
+            let quantity = localStorage.getItem(item[0]) || 0;
             if (quantity > 0) {
-                // If already added, show quantity controls instead of 'Add to Cart'
+            
                 createQuantityControls(item_div, item, quantity);
             } else {
                 let addToCartBtn = document.createElement("button");
@@ -118,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 item_div.appendChild(addToCartBtn);
         
                 addToCartBtn.addEventListener('click', function() {
-                    localStorage.setItem(item[0], 1); // Update localStorage when adding to cart
-                    createQuantityControls(item_div, item, 1); // Start with 1 item added
-                    addToCartBtn.remove(); // Remove 'Add to Cart' button
+                    localStorage.setItem(item[0], 1); 
+                    createQuantityControls(item_div, item, 1); 
+                    addToCartBtn.remove();
                 });
                 
             }
@@ -159,42 +130,32 @@ document.addEventListener("DOMContentLoaded", function() {
             if (newQuantity >= 0) {
                 localStorage.setItem(itemName, newQuantity);
                 displayElement.textContent = newQuantity;
-                displayFilteredItems(); // Re-evaluate and display items based on the updated quantity
+                displayFilteredItems();
             }
         }
-            // Filter based on price range
-            filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice); 
+
+            filtered_grocery_items = filtered_grocery_items.filter(item => item[1] <= maxPrice);
     }
 
+    // Attach the save_preferences function to the change event of checkboxes
+    document.getElementById("vegetarian-box").addEventListener("change", save_preferences);
+    document.getElementById("gluten-free-box").addEventListener("change", save_preferences);
+    document.getElementById("organic-box").addEventListener("change", save_preferences);
+    document.getElementById("lactose-free-box").addEventListener("change", save_preferences);
 
-        // Attach the save_preferences function to the change event of checkboxes
-        document.getElementById("vegetarian-box").addEventListener("change", save_preferences);
-        document.getElementById("gluten-free-box").addEventListener("change", save_preferences);
-        document.getElementById("organic-box").addEventListener("change", save_preferences);
-        document.getElementById("lactose-free-box").addEventListener("change", save_preferences);
+    // Set the initial state of checkboxes based on stored preferences
+    document.getElementById("vegetarian-box").checked = localStorage.getItem("vegetarian") === "true";
+    document.getElementById("gluten-free-box").checked = localStorage.getItem("glutenFree") === "true";
+    document.getElementById("organic-box").checked = localStorage.getItem("organic") === "true";
+    document.getElementById("lactose-free-box").checked = localStorage.getItem("lactoseFree") === "true";
 
-        // Set the initial state of checkboxes based on stored preferences
-        document.getElementById("vegetarian-box").checked = localStorage.getItem("vegetarian") === "true";
-        document.getElementById("gluten-free-box").checked = localStorage.getItem("glutenFree") === "true";
-        document.getElementById("organic-box").checked = localStorage.getItem("organic") === "true";
-        document.getElementById("lactose-free-box").checked = localStorage.getItem("lactoseFree") === "true";
+    // Display the filtered grocery items when the page is initially loaded
+    displayFilteredItems();
 
-        // Display the filtered grocery items when the page is initially loaded
-        displayFilteredItems();
+    document.getElementById("price-filter").addEventListener("change", displayFilteredItems);
+    document.getElementById("price-range").addEventListener("input", function(event) {
+    document.getElementById("price-range-value").textContent = `$${event.target.value}`;
+    displayFilteredItems();
+});
 
-        document.getElementById("price-filter").addEventListener("change", displayFilteredItems);
-        document.getElementById("price-range").addEventListener("input", function(event) {
-        document.getElementById("price-range-value").textContent = `$${event.target.value}`;
-        displayFilteredItems();
-    });
-
-    });
-
-    //Re-display the filtering by: icon
-    let search_criteria = localStorage.getItem("search-criteria");
-    if (!search_criteria){
-        search_criteria = "";
-    }
-    document.getElementById('searching-for').innerText = "Searching for: " + search_criteria;
-    console.log("Hey tim, searchign for: ", search_criteria);
-}});
+});
